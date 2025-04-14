@@ -97,7 +97,7 @@ class OwnerSimpleSerializer(serializers.ModelSerializer):
 class HotelImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = HotelImage
-        fields = '__all__'
+        fields = ['hotel_image']
 
 class HotelServiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -115,6 +115,11 @@ class RoomListSerializer(serializers.ModelSerializer):
         model = Room
         fields = ['id', 'owner', 'number_room', 'room_type', 'room_status', 'price', 'room_image']
 
+class RoomSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        fields = ['number_room', 'room_type', 'room_status', 'price', 'room_image']
+
 
 class RoomDetailSerializer(serializers.ModelSerializer):
     all_room_images = RoomImageSerializer(many=True, read_only=True)
@@ -128,12 +133,18 @@ class RoomCreateSerializer(serializers.ModelSerializer):
         model = Room
         fields = '__all__'
 
+class HotelSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Hotel
+        fields = ['hotel_name']
+
 
 class ReviewSerializer(serializers.ModelSerializer):
     username = ClientSimpleSerializer()
+    hotel = HotelSimpleSerializer()
     class Meta:
         model = Review
-        fields = ['username', 'text', 'stars']
+        fields = ['username', 'hotel', 'text', 'stars']
 
 
 class BookingSerializer(serializers.ModelSerializer):
@@ -157,7 +168,7 @@ class HotelDetailSerializer(serializers.ModelSerializer):
     hotel_image = HotelImageSerializer(many=True, read_only=True)
     owner = OwnerSimpleSerializer()
     created_date = serializers.DateField(format('%d-%m-%Y'))
-    rooms = RoomListSerializer(many=True, read_only=True)
+    rooms = RoomSimpleSerializer(many=True, read_only=True)
     reviews = ReviewSerializer(many=True, read_only=True)
     hotel_service = HotelServiceSerializer(many=True, read_only=True)
 

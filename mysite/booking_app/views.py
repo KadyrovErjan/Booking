@@ -71,6 +71,7 @@ class OwnerDetailApiView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Owner.objects.all()
     serializer_class = OwnerSimpleSerializer
 
+
     def get_queryset(self):
         return Owner.objects.filter(id=self.request.user.id)
 

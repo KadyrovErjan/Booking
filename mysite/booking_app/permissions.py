@@ -13,11 +13,15 @@ class CheckReviewUser(permissions.BasePermission):
             return True
         return False
 
-
-
 class CheckReviewEdit(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
         return request.user == obj.username
+
+# class CheckHotelOwner(permissions.BasePermission):
+#     def has_object_permission(self, request, view, obj):
+#         if obj.teacher.id == request.user.id:
+#             return True
+#         return False
 
