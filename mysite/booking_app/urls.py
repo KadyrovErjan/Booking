@@ -8,8 +8,9 @@ router.register(r'booking', BookingViewSet, basename='booking')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('', HotelListApiView.as_view(), name='hotel_list'),
-    path('<int:pk>/', HotelDetailApiView.as_view(), name='hotel_detail'),
+    path('booking', HotelListApiView.as_view(), name='hotel_list'),
+    path('review_list/', ReviewListAPIView.as_view(), name='review_list'),
+    path('booking<int:pk>/', HotelDetailApiView.as_view(), name='hotel_detail'),
     path('rooms/', RoomListApiView.as_view(), name='room_list'),
     path('rooms/<int:pk>', RoomDetailApiView.as_view(), name='room_detail'),
     path('rooms/create/', RoomCreateApiView.as_view(), name='room_create'),

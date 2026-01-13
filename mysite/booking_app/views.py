@@ -156,6 +156,10 @@ class ReviewViewSet(viewsets.ModelViewSet):
     serializer_class = ReviewSerializer
     permission_classes = [CheckReviewUser, CheckReviewEdit]
 
+class ReviewListAPIView(generics.ListAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
 
 class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()

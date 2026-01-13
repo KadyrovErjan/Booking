@@ -1,3 +1,4 @@
+
 from .models import Country, Hotel, Room, HotelService
 from modeltranslation.translator import TranslationOptions,register
 

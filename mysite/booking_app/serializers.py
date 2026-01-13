@@ -2,6 +2,15 @@ from rest_framework import serializers
 from .models import *
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
+import joblib
+from django.conf import settings
+import os
+
+model_path = os.path.join(settings.BASE_DIR, 'model_nb.pkl')
+model = joblib.load(model_path)
+
+vec_path = os.path.join(settings.BASE_DIR, 'vec.pkl')
+vec = joblib.load(vec_path)
 
 
 class OwnerRegisterSerializer(serializers.ModelSerializer):
@@ -142,9 +151,13 @@ class HotelSimpleSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     username = ClientSimpleSerializer()
     hotel = HotelSimpleSerializer()
+    check_comments = serializers.SerializerMethodField()
     class Meta:
         model = Review
-        fields = ['username', 'hotel', 'text', 'stars']
+        fields = ['username', 'hotel', 'text', 'stars', 'check_comments']
+
+    t a
+
 
 
 class BookingSerializer(serializers.ModelSerializer):
